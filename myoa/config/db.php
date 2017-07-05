@@ -6,5 +6,8 @@ return [
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8',
-    'tablePrefix' => 'oa_'
+    'tablePrefix' => 'oa_',
+    'enableSchemaCache' => true,
+    'schemaCacheDuration' => 3600,
+    'schemaCache' => 'cache'
 ];

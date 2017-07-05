@@ -78,6 +78,9 @@ class LoginsForm extends Model
         }
         //注册用户实体
         Yii::$app->user->login($rows);
+        $rows->lastlogin = time();
+        $rows->lastip = Yii::$app->request->userIP;
+        $rows->update();
         return true;
     }
 }

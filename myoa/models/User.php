@@ -11,7 +11,7 @@ use yii\web\IdentityInterface;
  * @property integer $id
  * @property string $username
  * @property string $password
- * @property string $lastlogin
+ * @property integer $lastlogin
  * @property string $lastip
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
@@ -31,9 +31,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'password'], 'required'],
-            [['username', 'lastlogin'], 'string', 'max' => 20],
+            [['username'], 'string', 'max' => 20],
             [['password'], 'string', 'max' => 32],
-            [['lastip'], 'string', 'max' => 50],
+            [['lastlogin'], 'integer'],
+            [['lastip'], 'string', 'max' => 32],
         ];
     }
 

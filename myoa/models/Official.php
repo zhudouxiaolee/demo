@@ -56,8 +56,8 @@ class Official extends \yii\db\ActiveRecord
      * @return bool
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
-     * Date: ${nd}
-     * Time: ${TIME}
+     * Date: 2017-07-05
+     * Time: 14:12:59
      * Description:存储今日办公日程
      */
     public function saveOfficialRecord($title, $content) {
