@@ -7,8 +7,10 @@
  * Time: 9:59
  * Description:
  */
+use app\assets\AppAsset;
 use yii\helpers\Html;
-
+//依赖加载js文件
+AppAsset::addJsFile($this, '@web/js/official.js');
 
 $this->title = '日程管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -38,18 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center"><?= $v['title']?></td>
                         <td class="text-center"><?= date('Y-m-d H:i:s', $v['time'])?></td>
                         <td class="text-center"><?= Yii::$app->params['week'][date('w', $v['time'])]?></td>
-                        <td><?= $v['content']?></td>
+                        <td data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
                         <td class="text-center">
-                            <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span>
+<!--                            <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span>-->
                             <span class="glyphicon glyphicon-trash" title="删除" style="cursor:pointer;"></span>
                         </td>
                     </tr>
                 <?php endforeach;?>
                 </tbody>
             </table>
-
             <!--分页-->
-            <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages])?>
+            <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages, 'count' => $count])?>
         </div>
         <!--添加日程-->
         <div id="add" class="tab-pane col-lg-10">
@@ -66,6 +67,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::resetButton('重置', ['class' => 'btn btn-default radius'])?>
         <?= Html::endForm()?>
         </div>
+    </div>
+<!--    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#alter-daily-modal">开启</button>-->
+    <!--模态框-->
+    <div class="modal fade" id="alter-daily-modal" tabindex="-1" role="dialog" aria-labelledby="测试模态框" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">修改日程内容</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" placeholder="日程内容" rows="5" data-id="" data-oldv="" style="resize: none"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-success" onclick="alter_daily_submit(this)">提交修改</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <?php $this->beginBlock('js')?>

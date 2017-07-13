@@ -19,16 +19,24 @@ use yii\widgets\ActiveForm;
 
 class ManageController extends Controller
 {
-    //登录界面
+    /**
+     * actionLogin.
+     * @access
+     * @return string|Response
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-12
+     * Time: 15:45:14
+     * Description:登陆界面
+     */
     public function actionLogin() {
         $loginForm = new LoginsForm();
         $loginForm->scenario = 'login';
         //判断是否为登录(是：执行登录判断；否：显示登录界面)
         $requestComponent = Yii::$app->request;
         if($requestComponent->isPost) {
-            $app = Yii::$app;
             //获取该模型所提交的表单内容
-            $postData = $requestComponent->post($loginForm->formName());//vp($postData);
+            $postData = $requestComponent->post($loginForm->formName());
             $userInfo = User::isLogin($postData['username'], $postData['password']);
             if(!$userInfo) {
                 return $this->goBack();
@@ -38,13 +46,32 @@ class ManageController extends Controller
         return $this->render('login', compact('loginForm'));
     }
 
-    //退出登录
+    /**
+     * actionLogout.
+     * @access
+     * @return Response
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-12
+     * Time: 15:45:30
+     * Description:退出登录
+     */
     public function actionLogout() {
         //注销登录
         Yii::$app->user->logout();
         return $this->goHome();
     }
 
+    /**
+     * actionAjax.
+     * @access
+     * @return array|bool
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-12
+     * Time: 15:46:00
+     * Description:ajax异步验证登录用户
+     */
     public function actionAjax() {
         $request = Yii::$app->request;
         if($request->isAjax) {
@@ -54,7 +81,11 @@ class ManageController extends Controller
             if($request->isPost && $loginForm->load($data)) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($loginForm);
+            }else {
+                return false;
             }
+        }else {
+            return false;
         }
     }
 }

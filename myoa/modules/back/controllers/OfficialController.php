@@ -66,13 +66,16 @@ class OfficialController extends Controller
      */
     public function actionIndex() {
         //日程列表
-        $query = Official::find()->orderBy(['time' => SORT_DESC]);
+        $query = Official::find()->select(['id', 'title', 'content', 'time'])
+            ->where(['uid' => Yii::$app->user->id])
+            ->orderBy(['time' => SORT_DESC])
+            ->asArray();
         $count = Official::find()->select('count(*)')->asArray()->scalar();
         //$count = $query->count();
         //分页
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
         $recordList = $query->offset($pages->offset)->limit($pages->limit)->all();
-        return $this->render('index', compact('recordList', 'pages'));
+        return $this->render('index', compact('recordList', 'pages', 'count'));
     }
 
     /**
@@ -83,7 +86,7 @@ class OfficialController extends Controller
      * Last Modify User: SunYuHeng
      * Date: 2017-07-05
      * Time: 14:10:43
-     * Description:管理操作
+     * Description:日报管理操作
      */
     public function actionManage() {
         //获取request组件

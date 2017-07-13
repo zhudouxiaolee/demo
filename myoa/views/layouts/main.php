@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -30,7 +31,7 @@ AppAsset::register($this);
         'brandLabel' => 'OA办公系统',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar navbar-inverse navbar-fixed-top',
         ],
     ]);
     echo Nav::widget([
@@ -43,6 +44,15 @@ AppAsset::register($this);
             Yii::$app->user->isGuest ? (
                 ['label' => '登录', 'url' => ['manage/login']]
             ) : (
+                '<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能菜单
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li><a href="'. Url::to(['official/index']).'">日程管理</a></li>
+                        <li><a href="'.Url::to(['notes/index']).'">笔记管理</a></li>
+                    </ul>
+                 </li>'.
                 '<li>'
                 . Html::beginForm(['/back/manage/logout'], 'post')
                 . Html::submitButton(

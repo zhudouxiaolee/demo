@@ -9,18 +9,23 @@
 use yii\widgets\LinkPager;
 ?>
 
-<div class="page-container text-center">
+<div class="page-container">
+    <div class="col-md-4 text-success">
+        <small class="text-muted">共<?= $count?>条记录</small>
+    </div>
+    <div class="col-md-8">
     <?= LinkPager::widget([
         'pagination' => $pages,
         'maxButtonCount' => 5,
         'firstPageLabel' => '首页',
         'lastPageLabel' => '尾页',
-        //'prevPageLabel' => true,
-        //'nextPageLabel' => true,
-        'options' => [
-            'class' => 'pagination',
-            'prevPageCssClass' => 'previous',
-            'nextPageCssClass' => 'next',
-        ]
+        'prevPageLabel' => false,
+        'nextPageLabel' => false,
+//        'options' => [
+//            'class' => 'pagination',
+//            'prevPageCssClass' => 'previous',
+//            'nextPageCssClass' => 'next',
+//        ]
     ])?>
+    </div>
 </div>
