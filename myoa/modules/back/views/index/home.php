@@ -16,6 +16,6 @@ $this->title = '主页';
     <div class="jumbotron">
 <!--        <h1>Welcome to OA systems!</h1>-->
         <p class="lead">开始我的办公日程.</p>
-        <?= Html::a('Go to start', ['/back/official/index'], ['class' => 'btn btn-success radius', 'style' => 'font-weight:bold;'])?>
+        <?= Html::a('Started to the office', ['/back/official/index'], ['class' => 'btn btn-success radius', 'style' => 'font-weight:bold;'])?>
     </div>
 </div>

@@ -16,7 +16,9 @@ use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\Response;
 
+/** @noinspection PhpInconsistentReturnPointsInspection */
 class OfficialController extends Controller
 {
     /**
@@ -66,11 +68,12 @@ class OfficialController extends Controller
      */
     public function actionIndex() {
         //日程列表
+        $where = ['uid' => Yii::$app->user->id];
         $query = Official::find()->select(['id', 'title', 'content', 'time'])
-            ->where(['uid' => Yii::$app->user->id])
+            ->where($where)
             ->orderBy(['time' => SORT_DESC])
             ->asArray();
-        $count = Official::find()->select('count(*)')->asArray()->scalar();
+        $count = Official::find()->select('count(*)')->where($where)->asArray()->scalar();
         //$count = $query->count();
         //分页
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
@@ -101,5 +104,61 @@ class OfficialController extends Controller
             }
             $this->goBack(['back/official/index']);
         }
+    }
+
+    /**
+     * actionAlterDailyOfficial.
+     * @access
+     * @return array|mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-13
+     * Time: 12:02:26
+     * Description:修改日程内容
+     */
+    public function actionAlterDailyOfficial() {
+        $request = Yii::$app->request;
+        $response = Yii::$app->response;
+        $response->format = Response::FORMAT_JSON;
+        if($request->isAjax) {
+            $postData = $request->post();
+            $rows = Official::updateAll(['content' => $postData['content']], ['id' => $postData['id']]);
+            if($rows) {
+                $response->data = ['status' => 1, 'msg' => '修改成功'];
+            }else {
+                $response->data = ['status' => 0, 'msg' => '修改失败'];
+            }
+        }else {
+            $response->data = ['status' => 0, 'msg' => '修改失败'];
+        }
+        return $response->data;
+    }
+
+    /**
+     * actionDeleteDailyOfficial.
+     * @access
+     * @return array|mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-13
+     * Time: 15:19:30
+     * Description:删除单条日程记录
+     */
+    public function actionDeleteDailyOfficial() {
+        $request = Yii::$app->request;
+        $response = Yii::$app->response;
+        $response->format = Response::FORMAT_JSON;
+        if($request->isAjax) {
+            $postData = $request->post();
+            $rows = Official::deleteAll(['id' => $postData['id']]);
+            if($rows) {
+                $response->data = ['status' => 1, 'msg' => '已删除!'];
+            }else {
+                $response->data = ['status' => 1, 'msg' => '删除失败!'];
+            }
+        }else {
+            $response->data = ['status' => 1, 'msg' => '删除失败!'];
+        }
+        return $response->data;
     }
 }

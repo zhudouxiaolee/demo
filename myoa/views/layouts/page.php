@@ -11,7 +11,7 @@ use yii\widgets\LinkPager;
 
 <div class="page-container">
     <div class="col-md-4 text-success">
-        <small class="text-muted">共<?= $count?>条记录</small>
+        <small class="text-muted">共<mark id="mark-count"><?= $count?></mark>条记录</small>
     </div>
     <div class="col-md-8">
     <?= LinkPager::widget([
@@ -21,11 +21,11 @@ use yii\widgets\LinkPager;
         'lastPageLabel' => '尾页',
         'prevPageLabel' => false,
         'nextPageLabel' => false,
-//        'options' => [
-//            'class' => 'pagination',
-//            'prevPageCssClass' => 'previous',
-//            'nextPageCssClass' => 'next',
-//        ]
+        'options' => [
+            'class' => 'pagination',
+            'prevPageCssClass' => 'previous',
+            'nextPageCssClass' => 'next',
+        ]
     ])?>
     </div>
 </div>

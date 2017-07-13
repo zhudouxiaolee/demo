@@ -9,6 +9,8 @@
  */
 use app\assets\AppAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 //依赖加载js文件
 AppAsset::addJsFile($this, '@web/js/official.js');
 
@@ -27,23 +29,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
+                        <th class="col-md-1 text-center">序号</th>
                         <th class="col-md-1 text-center">标题</th>
                         <th class="col-md-2 text-center">时间</th>
                         <th class="col-md-1 text-center">星期</th>
-                        <th class="col-md-7 text-center">内容</th>
+                        <th class="col-md-6 text-center">内容</th>
                         <th class="col-md-1 text-center">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($recordList as $v):?>
+                <?php foreach ($recordList as $k => $v):?>
                     <tr>
+                        <td class="text-center"><?= isset($_GET['page'])?($_GET['page']-1)*5+($k+1) : ($k+1)?></td>
                         <td class="text-center"><?= $v['title']?></td>
                         <td class="text-center"><?= date('Y-m-d H:i:s', $v['time'])?></td>
                         <td class="text-center"><?= Yii::$app->params['week'][date('w', $v['time'])]?></td>
-                        <td data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
+                        <td class="content" data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
                         <td class="text-center">
-<!--                            <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span>-->
-                            <span class="glyphicon glyphicon-trash" title="删除" style="cursor:pointer;"></span>
+                        <!--<span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span>-->
+                            <span class="glyphicon glyphicon-trash" onclick="delete_daily_official(this)" data-id="<?= $v['id']?>" title="删除" style="cursor:pointer;"></span>
                         </td>
                     </tr>
                 <?php endforeach;?>
@@ -53,15 +57,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages, 'count' => $count])?>
         </div>
         <!--添加日程-->
-        <div id="add" class="tab-pane col-lg-10">
-        <?= Html::beginForm(['/back/official/manage'], 'post')?>
+        <div id="add" class="tab-pane col-lg-10 col-lg-offset-1">
+        <?= Html::beginForm(['/back/official/manage'], 'post', ['onsubmit' => 'return is_empty_form();'])?>
             <div class="form-group">
                 <?= Html::label('标题：', 'title')?>
                 <?= Html::textInput('title', null, ['class' => 'form-control', 'id' => 'title'])?>
             </div>
             <div class="form-group">
                 <?= Html::label('内容：', 'content')?>
-                <?= Html::textarea('content', null, ['class' => 'form-control', 'id' => 'content'])?>
+                <?= Html::textarea('content', null, ['class' => 'form-control', 'id' => 'content', 'style' => 'resize:none', 'rows' => 8])?>
             </div>
             <?= Html::submitButton('提交', ['class' => 'btn btn-success radius'])?>
             <?= Html::resetButton('重置', ['class' => 'btn btn-default radius'])?>
@@ -77,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h4 class="modal-title">修改日程内容</h4>
                 </div>
                 <div class="modal-body">
-                    <textarea class="form-control" placeholder="日程内容" rows="5" data-id="" data-oldv="" style="resize: none"></textarea>
+                    <textarea class="form-control" placeholder="日程内容" rows="8" data-id="" data-oldv="" style="resize: none"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -89,6 +93,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <?php $this->beginBlock('js')?>
+    //修改日程内容url
+    var ALTERDAILYURL = '<?= Url::to(['official/alter-daily-official'])?>';
+    //删除单挑日程记录url
+    var DELETEDAILYURL = '<?= Url::to(['official/delete-daily-official'])?>';
     //tab标签切换调用（默认显示第一个）
     $('#nav_tab li:eq(0) a').tab('show');
 <?php $this->endBlock()?>

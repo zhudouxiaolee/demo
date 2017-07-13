@@ -18,6 +18,7 @@ class LoginsForm extends Model
     //属性
     public $username;
     public $password;
+    public $date;
     //登录场景
     const SCENARIO_LOGIN = 'login';
     //注册场景

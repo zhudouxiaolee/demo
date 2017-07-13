@@ -14,7 +14,7 @@ $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manage-login">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div class="col-lg-8 col-lg-offset-3">
         <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
                 'action' => Url::to(['/back/manage/login']),
