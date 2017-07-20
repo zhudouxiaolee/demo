@@ -97,7 +97,7 @@ class OfficialController extends Controller
         if($req->isPost) {
             $postData = $req->post();
             if(empty($postData['title']) || empty($postData['content'])) {
-
+                $this->error('标题或内容不能为空', '日程管理');
             }else {
                 $officialModel = new Official();
                 $officialModel->saveOfficialRecord($postData['title'], $postData['content']);
