@@ -74,14 +74,14 @@ class OfficialController extends Controller
         $count = $userModel->getOfficialList()->count();
         //分页
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
-        $recordList = $userModel->getOfficialList()->offset($pages->offset)->limit($pages->limit)->all();
+        $recordList = $userModel->getOfficialList()->orderBy(['id' => SORT_DESC])->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('index', compact('recordList', 'pages', 'count'));
     }
 
     /**
      * actionManage.
      * @access
-     * @return void
+     * @return string|Response
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
      * Date: 2017-07-05
@@ -94,12 +94,14 @@ class OfficialController extends Controller
         if($req->isPost) {
             $postData = $req->post();
             if(empty($postData['title']) || empty($postData['content'])) {
-                $this->error('标题或内容不能为空', '日程管理');
+                return $this->error('标题或内容不能为空', '日程管理');
             }else {
                 $officialModel = new Official();
                 $officialModel->saveOfficialRecord($postData['title'], $postData['content']);
+                return $this->goBack(['back/official/index']);
             }
-            $this->goBack(['back/official/index']);
+        }else {
+            return $this->error('非法访问', '403');
         }
     }
 

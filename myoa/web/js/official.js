@@ -76,15 +76,14 @@ function delete_daily_official(obj) {
         var newCount = parseInt(count) - 1;
         mark.text(newCount);
         $(obj).parent().parent().remove();
-        // $.ajax({
-        //     url:DELETEDAILYURL,
-        //     type:'post',
-        //     data:{id:id},
-        //     success:function (msg) {
-        //         layer.msg(msg.msg);
-        //     }
-        // });
-
+        $.ajax({
+            url:DELETEDAILYURL,
+            type:'post',
+            data:{id:id},
+            success:function (msg) {
+                layer.msg(msg.msg);
+            }
+        });
         layer.close(i);
     });
 }
