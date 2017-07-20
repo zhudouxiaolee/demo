@@ -11,6 +11,7 @@ namespace app\modules\back\controllers;
 
 
 use app\models\Official;
+use app\models\User;
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -68,16 +69,12 @@ class OfficialController extends Controller
      */
     public function actionIndex() {
         //日程列表
-        $where = ['uid' => Yii::$app->user->id];
-        $query = Official::find()->select(['id', 'title', 'content', 'time'])
-            ->where($where)
-            ->orderBy(['time' => SORT_DESC])
-            ->asArray();
-        $count = Official::find()->select('count(*)')->where($where)->asArray()->scalar();
-        //$count = $query->count();
+        $where = ['id' => Yii::$app->user->id];
+        $userModel = User::findOne($where);
+        $count = $userModel->getOfficialList()->count();
         //分页
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
-        $recordList = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $recordList = $userModel->getOfficialList()->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('index', compact('recordList', 'pages', 'count'));
     }
 

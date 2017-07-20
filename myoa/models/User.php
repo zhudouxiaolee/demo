@@ -166,4 +166,22 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         // TODO: Implement validateAuthKey() method.
         return $this->getAuthKey() === $authKey;
     }
+
+    /**
+     * getOfficialList.
+     * @access
+     * @return \yii\db\ActiveQuery
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-20
+     * Time: 17:41:21
+     * Description:获取该用户下的所有日程
+     */
+    public function getOfficialList() {
+        /**
+         * 第一个参数为要关联的子表模型类名称，
+         * 第二个参数指定通过子表的 id 去关联主表的 id 字段
+         */
+        return $this::hasMany(Official::className(), ['uid' => 'id']);
+    }
 }
