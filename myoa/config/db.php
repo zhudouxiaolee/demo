@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=myoasystems',
+    'dsn' => 'mysql:host=60.205.189.102;dbname=myoasystems',
     'username' => 'oauser',
     'password' => 'user#for!oa',
     'charset' => 'utf8',
