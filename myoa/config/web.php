@@ -53,7 +53,7 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
         //url美化
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'ruleConfig' => ['class' => 'yii\web\UrlRule'],
