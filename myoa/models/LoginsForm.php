@@ -37,7 +37,7 @@ class LoginsForm extends Model
     {
         return [
             [['username', 'password'], 'required', 'on' => 'login', 'message' => '{attribute}不能为空'],
-            ['username', 'string', 'max' => 6, 'tooLong' => '{attribute}最多{max}位字符'],
+            ['username', 'string', 'max' => 18, 'tooLong' => '{attribute}最多{max}位字符'],
             ['password', 'string', 'min' => 3, 'tooShort' => '{attribute}最少{min}位字符', 'on' => 'register'],
             ['username', 'validateUsername', 'skipOnError' => false, 'on' => 'login'],
             ['password', 'validatePassword', 'skipOnError' => false, 'on' => 'login']
