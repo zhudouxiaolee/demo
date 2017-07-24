@@ -184,4 +184,40 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
          */
         return $this::hasMany(Official::className(), ['uid' => 'id']);
     }
+
+    /**
+     * isAlter.
+     * @access
+     * @return boolean
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-24
+     * Time: 17:33:35
+     * Description:判断是否可以修改密码
+     */
+    public static function isAlter($passwd) {
+        $id = Yii::$app->user->id;
+        $user = static::findOne($id);
+        if($user['password'] == md5($passwd)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * alterPasswd.
+     * @access
+     * @param $passwd
+     * @return int
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-24
+     * Time: 17:53:38
+     * Description:更新密码
+     */
+    public static function alterPasswd($passwd) {
+        $id = Yii::$app->user->id;
+        return static::updateAll(['password' => md5($passwd)], ['id' => $id]);
+    }
 }

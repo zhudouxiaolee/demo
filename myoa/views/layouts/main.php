@@ -51,6 +51,7 @@ AppAsset::register($this);
                     <ul class="dropdown-menu dropdown-menu-left">
                         <li><a href="'. Url::to(['official/index']).'">日程管理</a></li>
                         <li><a href="'.Url::to(['notes/index']).'">笔记管理</a></li>
+                        <li><a onclick="alter_passwd(\''.Url::to(['manage/user-info']).'\')" href="javascript:void(0)">修改密码</a></li>
                     </ul>
                  </li>'.
                 '<li>'

@@ -13,6 +13,7 @@ namespace app\modules\back\controllers;
 use app\models\LoginsForm;
 use app\models\User;
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
@@ -87,5 +88,43 @@ class ManageController extends Controller
         }else {
             return false;
         }
+    }
+
+    /**
+     * actionUserInfo.
+     * @access
+     * @return array|mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-24
+     * Time: 17:52:15
+     * Description:更新密码
+     */
+    public function actionUserInfo() {
+        $request = Yii::$app->request;
+        $response = Yii::$app->response;
+        $response->format = Response::FORMAT_JSON;
+        if($request->isAjax) {
+            $postData = $request->post();
+            //判断操作类型(0：检测密码是否正确；1：更新密码)
+            if($postData['type']) {
+                //更新密码
+                if(User::alterPasswd($postData['passwd'])) {
+                    $response->data = ['msg' => '修改成功', 'status' => 1, 'url' => Url::to(['manage/logout'])];
+                }else {
+                    $response->data = ['msg' => '修改失败', 'status' => 0];
+                }
+            }else {
+                //判断输入的旧密码是否正确
+                if(User::isAlter($postData['passwd'])) {
+                    $response->data = ['msg' => '密码正确', 'status' => 1];
+                }else {
+                    $response->data = ['msg' => '密码错误', 'status' => 0];
+                }
+            }
+        }else {
+            $response->data = ['msg' => '非法访问', 'status' => 0];
+        }
+        return $response->data;
     }
 }
