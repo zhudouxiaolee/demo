@@ -174,9 +174,9 @@ function cate_alter(data,event) {
                 data:{cateid:id},
                 success:function (msg) {
                     if(msg.status) {
-                        layer.msg(msg.msg+'！该分类下的笔记将归类到未分类信息中');
+                        layer.msg(msg.msg+'！该分类下的笔记将归类到未分类信息中', {time:3000});
                         //$(event.currentTarget).find("li[data-nodeid="+node_id+"]").remove();
-                        window.location.reload();
+                        setTimeout(function(){window.location.reload()}, 3000);
                     }else {
                         layer.msg(msg.msg, {anim:6});
                     }
