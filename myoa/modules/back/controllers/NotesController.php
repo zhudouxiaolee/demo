@@ -14,7 +14,7 @@ use app\models\Category;
 use app\models\Notes;
 use app\models\User;
 use Yii;
-use yii\db\Exception;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -62,7 +62,11 @@ class NotesController extends Controller
         $id = Yii::$app->user->id;
         $user = User::findOne($id);
         //获取该用户下的所有笔记
-        $notesList = $user->getNotesList()->where($where)->orderBy(['id' => SORT_DESC])->all();
+        $notes = $user->getNotesList()->where($where);
+        $count = $notes->count();
+        $pages = new Pagination(['totalCount' => $count, 'pageSize' => 10]);
+        $notesList = $notes->orderBy(['id' => SORT_DESC])->offset($pages->offset)->limit($pages->limit)->all();
+
         //获取该用户下的所有笔记分类
         $cateResult = $user->getCategory()->alias('c')->leftJoin(['n' => Notes::tableName()], 'n.cateid = c.id')->select(['c.id', 'c.name', 'count(ifnull(`n`.`id`,null)) as notestotal'])->groupBy('c.id')->orderBy('convert(`c`.`name` using gbk)')->asArray()->all();
         //笔记列表select框需要的数组
@@ -74,7 +78,7 @@ class NotesController extends Controller
         }else {
             $cateList = [];
         }
-        return $this->render('index', compact('notesList', 'search', 'cateList', 'cateResult'));
+        return $this->render('index', compact('notesList', 'search', 'cateList', 'cateResult', 'pages', 'count'));
     }
 
     /**

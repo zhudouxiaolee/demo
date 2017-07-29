@@ -79,6 +79,8 @@ AppAsset::addJsFile($this, '@web/js/notes.js');
                         </div>
                         <div class="notes table" data-text="<?= $v['content']?>"></div>
                     <?php endforeach;?>
+                    <!--分页-->
+                    <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages, 'count' => $count])?>
                 </div>
             </div>
             <div id="notes_add" class="tab-pane">
