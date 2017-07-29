@@ -13,7 +13,8 @@ use yii\helpers\Url;
 
 //依赖加载js文件
 AppAsset::addJsFile($this, '@web/js/official.js');
-
+AppAsset::addCssFile($this, '@web/css/dataTables.css');
+AppAsset::addJsFile($this, '@web/js/dataTables.js');
 $this->title = '日程管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -26,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="tab-content">
         <!--日程列表显示-->
         <div id="list" class="tab-pane active">
-            <table class="table table-hover table-striped">
+            <table id="official_list" class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th class="col-md-1 text-center">序号</th>
@@ -99,5 +100,14 @@ $this->params['breadcrumbs'][] = $this->title;
     var DELETEDAILYURL = '<?= Url::to(['official/delete-daily-official'])?>';
     //tab标签切换调用（默认显示第一个）
     $('#nav_tab li:eq(0) a').tab('show');
+    //dataTables
+    $('#official_list').DataTable({
+        'info':false,
+        'paging':false,
+        'searching':false,
+        'columnDefs': [
+            {'orderable':false, 'targets' : [4,5]}
+        ]
+    });
 <?php $this->endBlock()?>
 <?php $this->registerJs($this->blocks['js'], \yii\web\view::POS_END)?>
