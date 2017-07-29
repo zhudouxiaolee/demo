@@ -70,7 +70,7 @@ function alter_daily_submit(obj) {
 /*删除单条日程记录*/
 function delete_daily_official(obj) {
     var id = $(obj).attr('data-id');
-    layer.confirm('确认删除？', {icon:3,title:'小提示',skin:'layui-layer-molv'}, function(i) {
+    layer.confirm('确认删除？', {icon:3,title:'小提示'}, function(i) {
         var mark = $('#mark-count');
         var count = mark.text();
         var newCount = parseInt(count) - 1;

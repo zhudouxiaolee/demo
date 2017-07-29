@@ -51,6 +51,7 @@ AppAsset::register($this);
                     <ul class="dropdown-menu dropdown-menu-left">
                         <li><a href="'. Url::to(['official/index']).'">日程管理</a></li>
                         <li><a href="'.Url::to(['notes/index']).'">笔记管理</a></li>
+                        <li><a onclick="add_cate(\''.Url::to(['notes/cate-add']).'\')" href="javascript:void(0)">添加分类</a></li>
                         <li><a onclick="alter_passwd(\''.Url::to(['manage/user-info']).'\')" href="javascript:void(0)">修改密码</a></li>
                     </ul>
                  </li>'.
@@ -85,7 +86,7 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; OA办公系统 <?= date('Y') ?></p>
-        <p class="pull-right"><a class="date" href="javascript:void(0)"></a><?php //echo Yii::powered(); ?></p>
+        <p class="pull-right"><a id="clock" href="javascript:void(0)"></a><?php //echo Yii::powered(); ?></p>
     </div>
 </footer>
 

@@ -3028,5 +3028,197 @@
             }
         ],
         "description": "BDD code blocks for PHPUnit and Codeception"
+    },
+    {
+        "name": "bower-asset/bootstrap-datepicker",
+        "version": "v1.7.0",
+        "version_normalized": "1.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
+            "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+            "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/jquery": ">=1.7.1,<4.0.0"
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": [
+                "dist/css/bootstrap-datepicker3.css",
+                "dist/js/bootstrap-datepicker.js"
+            ],
+            "bower-asset-ignore": []
+        },
+        "installation-source": "dist",
+        "license": [
+            "Apache-2.0"
+        ]
+    },
+    {
+        "name": "2amigos/yii2-date-picker-widget",
+        "version": "1.0.7",
+        "version_normalized": "1.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/2amigos/yii2-date-picker-widget.git",
+            "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/2amigos/yii2-date-picker-widget/zipball/d09c2444e8c2329e38528bba77002dd65186c1ff",
+            "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/bootstrap-datepicker": "1.7.0",
+            "yiisoft/yii2": ">=2.0.9",
+            "yiisoft/yii2-bootstrap": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*"
+        },
+        "time": "2017-07-05T05:52:03+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            },
+            "asset-installer-paths": {
+                "bower-asset-library": "vendor/bower"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "dosamigos\\datepicker\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "2amigOS! Consulting Group",
+                "email": "hola@2amigos.us",
+                "homepage": "http://2amigos.us",
+                "role": "Developer"
+            }
+        ],
+        "description": "Bootstrap DatePicker widget for Yii2.",
+        "homepage": "http://yiiwheels.com/extension/bootstrap-datepicker",
+        "keywords": [
+            "2amigos",
+            "datepicker",
+            "extension",
+            "widget",
+            "yii",
+            "yii 2",
+            "yii2"
+        ]
+    },
+    {
+        "name": "bower-asset/bootstrap-treeview",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jonmiles/bootstrap-treeview.git",
+            "reference": "542f57eab636e14417216e95fa7f7049bbf3d69f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jonmiles/bootstrap-treeview/zipball/542f57eab636e14417216e95fa7f7049bbf3d69f",
+            "reference": "542f57eab636e14417216e95fa7f7049bbf3d69f",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/bootstrap": ">=3.0.0",
+            "bower-asset/jquery": ">=1.9.0"
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": [
+                "dist/bootstrap-treeview.min.js",
+                "dist/bootstrap-treeview.min.css"
+            ],
+            "bower-asset-ignore": [
+                "**/.*",
+                "node_modules",
+                "bower_components",
+                "test",
+                "tests"
+            ]
+        },
+        "installation-source": "dist",
+        "description": "Tree View for Twitter Bootstrap",
+        "keywords": [
+            "bootstrap",
+            "javascript",
+            "jquery",
+            "jquery-plugin",
+            "navigation",
+            "tree",
+            "tree-view",
+            "treeview",
+            "twitter"
+        ]
+    },
+    {
+        "name": "yongtiger/yii2-bootstrap-tree",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yongtiger/yii2-bootstrap-tree.git",
+            "reference": "f396b2e4a70c3ea6f3026542cd9e14fe8aa1aca0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yongtiger/yii2-bootstrap-tree/zipball/f396b2e4a70c3ea6f3026542cd9e14fe8aa1aca0",
+            "reference": "f396b2e4a70c3ea6f3026542cd9e14fe8aa1aca0",
+            "shasum": ""
+        },
+        "require": {
+            "bower-asset/bootstrap-treeview": "@dev",
+            "php": ">=5.5",
+            "yiisoft/yii2": "*",
+            "yiisoft/yii2-bootstrap": "*"
+        },
+        "time": "2017-04-23T22:50:34+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yongtiger\\bootstraptree\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Yong Tiger",
+                "email": "tigeryang.brainbook@outlook.com",
+                "homepage": "http://www.branbook.cc/yongtiger"
+            }
+        ],
+        "description": "A bootstrap tree for both jonmiles bootstrap treeview 1.2.0 and 2.0.0 (https://github.com/jonmiles/bootstrap-treeview)",
+        "homepage": "http://www.branbook.cc",
+        "keywords": [
+            "bootstrap",
+            "extension",
+            "tree",
+            "treeview",
+            "widget",
+            "yii2"
+        ]
     }
 ]

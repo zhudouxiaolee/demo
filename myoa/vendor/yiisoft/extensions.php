@@ -48,4 +48,22 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
+  '2amigos/yii2-date-picker-widget' => 
+  array (
+    'name' => '2amigos/yii2-date-picker-widget',
+    'version' => '1.0.7.0',
+    'alias' => 
+    array (
+      '@dosamigos/datepicker' => $vendorDir . '/2amigos/yii2-date-picker-widget/src',
+    ),
+  ),
+  'yongtiger/yii2-bootstrap-tree' => 
+  array (
+    'name' => 'yongtiger/yii2-bootstrap-tree',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@yongtiger/bootstraptree' => $vendorDir . '/yongtiger/yii2-bootstrap-tree/src',
+    ),
+  ),
 );

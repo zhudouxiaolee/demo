@@ -277,4 +277,80 @@ class Controller extends \yii\base\Controller
     protected function error($msg, $title) {
         return $this->render('@app/views/layouts/error.php', compact('msg', 'title'));
     }
+
+    /**
+     * curl.
+     * @access
+     * @param $url
+     * @param bool $params
+     * @return mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-26
+     * Time: 11:09:25
+     * Description:curl传输数据
+     */
+    protected function curl($url, $params = false) {
+        //初始化
+        $ch = curl_init();
+        //配置参数
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);//禁止curl验证对等证书
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);//设置为 1 是检查服务器SSL证书中是否存在一个公用名(common name)
+        if($params) {
+            //是否开启post提交
+            curl_setopt($ch, CURLOPT_POST, true);
+            //传输数据使用http协议中的post操作来发送
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        }
+        //是否显示在页面中（0，显示；1不显示）
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+    /**
+     * restFulResult.
+     * @access
+     * @param $msg string 返回信息
+     * @param $status integer 信息级别
+     * @param $url mixed 是否带有url返回
+     * @param string $type
+     * @return array|mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-26
+     * Time: 15:45:21
+     * Description:格式化输出提示信息，默认json格式
+     */
+    protected function restFulResult($msg, $status, $url = null, $type = Response::FORMAT_JSON) {
+        $response = Yii::$app->response;
+        $response->format = $type;
+        if($url) {
+            $response->data = ['msg' => $msg, 'status' => $status, 'url' => $url];
+        }else {
+            $response->data = ['msg' => $msg, 'status' => $status];
+        }
+        return $response->data;
+    }
+
+    /**
+     * dataFormat.
+     * @access
+     * @param $data
+     * @param string $type
+     * @return mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-28
+     * Time: 11:01:16
+     * Description:格式化输出数据
+     */
+    protected function dataFormat($data, $type = Response::FORMAT_JSON) {
+        $response = Yii::$app->response;
+        $response->format = $type;
+        $response->data = ['data' => $data];
+        return $response->data;
+    }
 }
