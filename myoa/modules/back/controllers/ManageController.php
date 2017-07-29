@@ -112,7 +112,7 @@ class ManageController extends Controller
                 if(User::alterPasswd($postData['passwd'])) {
                     $response->data = ['msg' => '修改成功', 'status' => 1, 'url' => Url::to(['manage/logout'])];
                 }else {
-                    $response->data = ['msg' => '修改失败', 'status' => 0];
+                    $response->data = ['msg' => '未修改', 'status' => 0];
                 }
             }else {
                 //判断输入的旧密码是否正确
@@ -126,5 +126,16 @@ class ManageController extends Controller
             $response->data = ['msg' => '非法访问', 'status' => 0];
         }
         return $response->data;
+    }
+
+    public function actionTest() {
+        $arr = ['22', 's' => 212];
+        print_r($arr);
+    }
+
+    public function actionE() {
+        $url = 'http://myoa.com/index.php?r=back/manage/test';
+        $data = $this->curl($url);
+        print_r($data);
     }
 }

@@ -13,7 +13,7 @@ function show_date() {
         var s = date.getSeconds();
         var w = date.getDay();
         var str = y + '年' + check_time(m) + '月' + check_time(d) + '日 ' + check_time(h) + '时' + check_time(i) + '分' + check_time(s) + '秒 ' + week[w];
-        $('.date').html(str);
+        $('#clock').html(str);
     },1000);
 }
 /*格式化前导零*/
@@ -39,6 +39,15 @@ function alter_passwd(url) {
                 if(msg.status){
                     layer.close(index);
                     layer.prompt({title:'请输入新密码',formType:1},function(newPass,index){
+                        console.log(newPass.length);
+                        if(newPass.length<6 && newPass.length > 18) {
+                            layer.msg('密码不能少于6位或大于18位',{anim:6});
+                            return false;
+                        }
+                        if(newPass == oldPass) {
+                            layer.msg('与旧密码相同，未修改', {anim:6});
+                            return false;
+                        }
                         $.ajax({
                             url:url,
                             type:'post',
@@ -56,6 +65,24 @@ function alter_passwd(url) {
                     });
                 }else {
                     layer.msg(msg.msg,{anim:6});
+                }
+            }
+        });
+    });
+}
+/*增加分类*/
+function add_cate(url) {
+    layer.prompt({title:'请输入分类名称'}, function(text, index) {
+        $.ajax({
+            url:url,
+            type:'post',
+            data:{name:text},
+            success:function (msg) {
+                if(msg.status) {
+                    layer.msg(msg.msg);
+                    window.location.reload();
+                }else {
+                    layer.msg(msg.msg, {anim:6});
                 }
             }
         });

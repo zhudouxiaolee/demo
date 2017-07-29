@@ -17,6 +17,7 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
     public static $prefixLengthsPsr4 = array (
         'y' => 
         array (
+            'yongtiger\\bootstraptree\\' => 24,
             'yii\\swiftmailer\\' => 16,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
@@ -28,6 +29,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'd' => 
+        array (
+            'dosamigos\\datepicker\\' => 21,
         ),
         'c' => 
         array (
@@ -76,6 +81,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
     );
 
     public static $prefixDirsPsr4 = array (
+        'yongtiger\\bootstraptree\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yongtiger/yii2-bootstrap-tree/src',
+        ),
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
@@ -109,6 +118,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'dosamigos\\datepicker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-date-picker-widget/src',
         ),
         'cebe\\markdown\\' => 
         array (
