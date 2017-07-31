@@ -113,6 +113,10 @@ function notes_content_alter_submit(id) {
 /*删除笔记*/
 function notes_delete(obj) {
     var id = $(obj).attr('data-id');
+    //删除记录后刷新总记录条数
+    var mark = $('#mark-count');
+    var count = mark.text();
+    var newCount = parseInt(count) - 1;
     layer.confirm('确认删除？', {icon:3,title:'小提示'}, function () {
         $.ajax({
             url:NOTES_DEL_URL,
@@ -124,6 +128,7 @@ function notes_delete(obj) {
                     //置空该笔记内容的DOM结构
                     $(obj).parents('.notes_edit').next().remove();//内容置空
                     $(obj).parents('.notes_edit').remove();//操作栏置空
+                    mark.text(newCount);
                 }else {
                     layer.msg(msg.msg, {anim:6});
                 }

@@ -153,10 +153,10 @@ class OfficialController extends Controller
             if($rows) {
                 $response->data = ['status' => 1, 'msg' => '已删除!'];
             }else {
-                $response->data = ['status' => 1, 'msg' => '删除失败!'];
+                $response->data = ['status' => 0, 'msg' => '删除失败!'];
             }
         }else {
-            $response->data = ['status' => 1, 'msg' => '删除失败!'];
+            $response->data = ['status' => 0, 'msg' => '非法访问'];
         }
         return $response->data;
     }
