@@ -71,6 +71,7 @@ AppAsset::addJsFile($this, '@web/js/notes.js');
                         <div class="notes_edit">
                             <nav class="navbar " style="padding-right: 10px;">
                                 <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="javascript:void(0)" onclick="notes_key_words(this)"  data-id="<?= $v['id']?>" title="关键词" class="glyphicon glyphicon-exclamation-sign"></a></li>
                                     <li><a href="javascript:void(0)" onclick="notest_cate_list(this)" data-id="<?= $v['id']?>" data-cate-id="<?= $v['cateid']?>" title="分类" class="glyphicon glyphicon-tags"></a></li>
                                     <li><a href="javascript:void(0)" onclick="notes_edit(this)" data-id="<?= $v['id']?>" title="编辑" class="glyphicon glyphicon-edit"></a></li>
                                     <li><a href="javascript:void(0)" onclick="notes_delete(this)" data-id="<?= $v['id']?>" title="删除" class="glyphicon glyphicon-trash"></a></li>
@@ -156,6 +157,8 @@ AppAsset::addJsFile($this, '@web/js/notes.js');
     var CATE_DELETE_URL = '<?= Url::to(['notes/cate-delete'])?>';
     //修改某条分类的名称
     var CATE_NAME_ALTER = '<?= Url::to(['notes/cate-alter'])?>';
+    //查看关键词的路径
+    var NOTES_KEY_WORDS_URL = '<?= Url::to(['notes/notes-key-words'])?>';
     //标签切换
     $('#notes_tab li:eq(0) a').tab('show');
 
