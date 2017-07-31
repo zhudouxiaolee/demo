@@ -54,10 +54,11 @@ function notest_cate_list(obj) {
                     }
                 });
                 str += '</select>';
-                layer.open({
+                var i = layer.open({
                     type:1,
                     title:'修改分类',
                     area:['220px', '100px'],
+                    shadeClose:true,
                     content:'<div class="col-lg-12 text-center form-inline">'+str+'<button type="button" class="btn btn-success" data-id="'+id+'" data-cate-id="'+cate_id+'" onclick="notes_cate_alter(this)">提交</button></div>'
                 });
             }else {
