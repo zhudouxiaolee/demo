@@ -314,4 +314,24 @@ class NotesController extends Controller
         }
         return $result;
     }
+
+    public function actionNotesKeyWords() {
+        $request = Yii::$app->request;
+        if($request->isAjax) {
+            $postData = $request->post();
+            if($postData) {
+                $rows = Notes::find()->select('title')->where(['id' => $postData['id']])->asArray()->scalar();
+                if($rows) {
+                    $result = $this->restFulResult($rows, 1);
+                }else {
+                    $result = $this->restFulResult('该条笔记目前没有关键词摘要内容', 0);
+                }
+            }else {
+                $result = $this->restFulResult('未获取到要查看的数据', 0);
+            }
+        }else {
+            $result = $this->restFulResult('非法访问', 0);
+        }
+        return $result;
+    }
 }

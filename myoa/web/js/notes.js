@@ -224,6 +224,22 @@ function cate_alter_name(obj) {
         }
     });
 }
+/*查询关键词*/
+function notes_key_words(obj) {
+    var id = $(obj).attr('data-id');
+    $.ajax({
+        url:NOTES_KEY_WORDS_URL,
+        type:'post',
+        data:{id:id},
+        success:function (msg) {
+            if(msg.status) {
+                layer.tips(msg.msg, obj, {tips:[3,'#494C57']});
+            }else {
+                layer.msg(msg.msg, {anim:6});
+            }
+        }
+    });
+}
 /*DOM加载完毕markdown编译笔记内容*/
 $('.notes').each(function (index,item) {
     var text = $(item).attr('data-text');
