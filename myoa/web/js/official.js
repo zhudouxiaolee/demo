@@ -71,17 +71,22 @@ function alter_daily_submit(obj) {
 function delete_daily_official(obj) {
     var id = $(obj).attr('data-id');
     layer.confirm('确认删除？', {icon:3,title:'小提示'}, function(i) {
+        //删除记录后刷新总记录条数
         var mark = $('#mark-count');
         var count = mark.text();
         var newCount = parseInt(count) - 1;
-        mark.text(newCount);
-        $(obj).parent().parent().remove();
         $.ajax({
             url:DELETEDAILYURL,
             type:'post',
             data:{id:id},
             success:function (msg) {
-                layer.msg(msg.msg);
+                if(msg.status) {
+                    $(obj).parent().parent().remove();
+                    mark.text(newCount);
+                    layer.msg(msg.msg);
+                }else {
+                    layer.msg(msg.msg, {anim:6});
+                }
             }
         });
         layer.close(i);
