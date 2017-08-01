@@ -4,7 +4,7 @@
  * User: SunYuHeng
  * Date: 2017/6/22
  * Time: 9:55
- * Description:
+ * Description:表单模型
  */
 
 namespace app\models;
@@ -18,7 +18,7 @@ class LoginsForm extends Model
     //属性
     public $username;
     public $password;
-    public $date;
+    public $code;
     //登录场景
     const SCENARIO_LOGIN = 'login';
     //注册场景
@@ -29,25 +29,27 @@ class LoginsForm extends Model
     {
         return [
             'username' => '用户名',
-            'password' => '密码'
+            'password' => '密码',
+            'code' => '验证码'
         ];
     }
     //规则
     public function rules()
     {
         return [
-            [['username', 'password'], 'required', 'on' => 'login', 'message' => '{attribute}不能为空'],
+            [['username', 'password', 'code'], 'required', 'on' => 'login', 'message' => '{attribute}不能为空'],
             ['username', 'string', 'max' => 18, 'tooLong' => '{attribute}最多{max}位字符'],
             ['password', 'string', 'min' => 6, 'tooShort' => '{attribute}最少{min}位字符', 'on' => 'register'],
             ['username', 'validateUsername', 'skipOnError' => false, 'on' => 'login'],
-            ['password', 'validatePassword', 'skipOnError' => false, 'on' => 'login']
+            ['password', 'validatePassword', 'skipOnError' => false, 'on' => 'login'],
+            ['code', 'captcha', 'captchaAction' => 'back/manage/code', 'on' => 'login', 'message' => '{attribute}错误']
         ];
     }
     //场景
     public function scenarios()
     {
         return [
-            self::SCENARIO_LOGIN => ['username', 'password'],
+            self::SCENARIO_LOGIN => ['username', 'password', 'code'],
             self::SCENARIO_REGISTER => ['username', 'password']
         ];
     }

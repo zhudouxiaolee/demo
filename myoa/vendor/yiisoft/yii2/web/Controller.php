@@ -9,6 +9,7 @@ namespace yii\web;
 
 use Yii;
 use yii\base\InlineAction;
+use yii\filters\AccessControl;
 use yii\helpers\Url;
 
 /**
@@ -31,6 +32,41 @@ class Controller extends \yii\base\Controller
      */
     public $actionParams = [];
 
+    /**
+     * behaviors.
+     * @access
+     * @return array
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-07-05
+     * Time: 14:11:23
+     * Description:行为层，ACF控制
+     */
+    // @fixme 修改父类ACF控制 放在基类不适合，有待研究
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' =>  ['index', 'login', 'logout'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'logout', 'login'],
+                        'roles' => ['@']//用户角色
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['login'],
+                        'roles' => ['?']//游客
+                    ],
+                ],
+                'denyCallback' => function($rule, $action) {
+                    return $this->redirect(['/back/manage/login']);
+                }
+            ]
+        ];
+    }
 
     /**
      * Renders a view in response to an AJAX request.

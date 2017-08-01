@@ -20,6 +20,23 @@ use yii\widgets\ActiveForm;
 
 class ManageController extends Controller
 {
+
+    public function actions()
+    {
+        return [
+            'code' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                //"backColor" => 0x8421504,
+                //"foreColor" => 0x16777215,
+//                "height" => 40,
+//                "width" => 80,
+                "maxLength" => 4,
+                "minLength" => 4,
+                "offset" => 4,
+            ],
+        ];
+    }
+
     /**
      * actionLogin.
      * @access
@@ -126,16 +143,5 @@ class ManageController extends Controller
             $response->data = ['msg' => '非法访问', 'status' => 0];
         }
         return $response->data;
-    }
-
-    public function actionTest() {
-        $arr = ['22', 's' => 212];
-        print_r($arr);
-    }
-
-    public function actionE() {
-        $url = 'http://myoa.com/index.php?r=back/manage/test';
-        $data = $this->curl($url);
-        print_r($data);
     }
 }

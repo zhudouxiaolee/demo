@@ -14,49 +14,12 @@ use app\models\Official;
 use app\models\User;
 use Yii;
 use yii\data\Pagination;
-use yii\filters\AccessControl;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
 /** @noinspection PhpInconsistentReturnPointsInspection */
 class OfficialController extends Controller
 {
-    /**
-     * behaviors.
-     * @access
-     * @return array
-     * Created by User: SunYuHeng
-     * Last Modify User: SunYuHeng
-     * Date: 2017-07-05
-     * Time: 14:11:23
-     * Description:行为层，ACF控制
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' =>  ['index', 'manage'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'manage'],
-                        'roles' => ['@']//用户角色
-                    ],
-                    [
-                        'allow' => false,
-                        'actions' => ['index', 'manage'],
-                        'roles' => ['?']//游客
-                    ]
-                ],
-                'denyCallback' => function($rule, $action) {
-                    return $this->redirect(['/back/manage/login']);
-                }
-            ]
-        ];
-    }
-
     /**
      * actionIndex.
      * @access
