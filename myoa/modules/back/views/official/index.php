@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center"><?= Yii::$app->params['week'][date('w', $v['time'])]?></td>
                         <td class="content" data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
                         <td class="text-center">
-                        <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span>
+<!--                         <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span> -->
                             <span class="glyphicon glyphicon-trash" onclick="delete_daily_official(this)" data-id="<?= $v['id']?>" title="删除" style="cursor:pointer;"></span>
                         </td>
                     </tr>
