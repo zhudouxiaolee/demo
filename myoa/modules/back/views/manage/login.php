@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '{label}<div class="col-sm-6">{input}</div>{hint}{error}'
                 ],
         ])?>
-            <?= $form->field($loginForm, 'username')->textInput()->label('用户名')?>
-            <?= $form->field($loginForm, 'password')->passwordInput()->label('密&nbsp;&nbsp;码')?>
+            <?= $form->field($loginForm, 'username')->textInput(['placeholder' => '用户名'])->label('用户名')?>
+            <?= $form->field($loginForm, 'password')->passwordInput(['placeholder' => '密码'])->label('密&nbsp;&nbsp;码')?>
             <?= $form->field($loginForm, 'code')->widget(\yii\captcha\Captcha::className(), [
                     'captchaAction' => 'manage/code',
                     'template' => '{input}{image}',
