@@ -84,7 +84,7 @@ class NotesController extends Controller
     /**
      * actionNotesAdd.
      * @access
-     * @return array|mixed
+     * @return array|mixed|string|\yii\web\Response
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
      * Date: 2017-07-26
@@ -93,18 +93,17 @@ class NotesController extends Controller
      */
     public function actionNotesAdd() {
         $request = Yii::$app->request;
-        if($request->isAjax) {
+        if($request->isPost) {
             $postData = $request->post();
             $notesModel = new Notes();
             if($notesModel->notesAdd($postData)) {
-                $result = $this->restFulResult('添加成功', 1, Url::to(['notes/index']));
+                return  $this->redirect(['notes/index']);
             }else {
-                $result = $this->restFulResult('添加失败', 0);
+                return  $this->goBack($request->referrer);
             }
         }else {
-            $result = $this->restFulResult('非法访问', 0);
+            return $this->restFulResult('非法访问', 0);
         }
-        return $result;
     }
 
     /**

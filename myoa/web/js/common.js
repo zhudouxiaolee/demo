@@ -88,3 +88,16 @@ function add_cate(url) {
         });
     });
 }
+/*返回顶部*/
+var main_navbar_height = $('#main_navbar').height();
+$(window).scroll(function () {
+    var scroll = $(this).scrollTop();
+    if(scroll > main_navbar_height) {
+        $('.back-to-top').fadeIn();
+    }else {
+        $('.back-to-top').fadeOut();
+    }
+});
+$('.back-to-top').on('click', function () {
+    $('body').animate({'scrollTop': 0}, 300);
+});

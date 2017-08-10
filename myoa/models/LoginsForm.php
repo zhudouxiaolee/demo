@@ -30,7 +30,7 @@ class LoginsForm extends Model
         return [
             'username' => '用户名',
             'password' => '密码',
-            'code' => '验证码'
+            'code' => '验证码',
         ];
     }
     //规则
@@ -50,7 +50,7 @@ class LoginsForm extends Model
     {
         return [
             self::SCENARIO_LOGIN => ['username', 'password', 'code'],
-            self::SCENARIO_REGISTER => ['username', 'password']
+            self::SCENARIO_REGISTER => ['username', 'password'],
         ];
     }
 

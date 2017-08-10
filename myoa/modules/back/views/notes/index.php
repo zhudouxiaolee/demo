@@ -10,6 +10,7 @@ use app\assets\AppAsset;
 use dosamigos\datepicker\DateRangePicker;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Markdown;
 use yii\helpers\Url;
 
 /* @var $this \yii\web\view */
@@ -78,27 +79,38 @@ AppAsset::addJsFile($this, '@web/js/notes.js');
                                 </ul>
                             </nav>
                         </div>
-                        <div class="notes table" data-text="<?= $v['content']?>"></div>
+                        <!--markdown编译解析-->
+                        <div class="notes table" data-text="<?= $v['content']?>">
+                            <?= Markdown::process($v['content'])?>
+                        </div>
                     <?php endforeach;?>
                     <!--分页-->
                     <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages, 'count' => $count])?>
                 </div>
             </div>
             <div id="notes_add" class="tab-pane">
-                <div class="col-lg-5">
+                <!--Markdown编辑器-->
+                <div class="col-lg-10">
                     <div class="alert alert-success">
                         <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
                         <em>本编辑器支持markdown语法解析!!!详情请点击<a href="http://www.appinn.com/markdown/" target="_blank">markdown语法</a></em>
                     </div>
-                    <textarea id="mark_content" class="form-control" onkeyup="compile()" title="markdown" rows="20" style="resize: none"></textarea>
-                    <div class="text-center" style="margin-top: 5px">
-                        <button class="btn btn-success radius" type="button" onclick="notes_submit()">确认添加</button>
-                        <button class="btn btn-default radius" type="button" onclick="notes_reset()">重置</button>
+                    <?= Html::beginForm(Url::to(['notes/notes-add']), 'post', ['id' => 'form_notes'])?>
+                    <?= Html::hiddenInput('title', null)?>
+                    <?= \ijackua\lepture\Markdowneditor::widget([
+                        'id' => 'mark_content',
+                        'name' => 'content',
+                        'markedOptions' => [
+                            'tables' => false
+                        ],
+                        'leptureOptions' => [
+                            'toolbar' => false,
+                        ]
+                    ])?>
+                    <div class="text-center">
+                    <?= Html::button('提交', ['class' => 'btn btn-success', 'onclick' => 'notes_submit()'])?>
                     </div>
-                </div>
-                <div class="col-lg-5 layui-layer-border">
-                    <div class="text-center"><h3><em>编译版块</em></h3></div>
-                    <div id="mark_id"></div>
+                    <?= Html::endForm()?>
                 </div>
             </div>
             <div id="cate_list" class="tab-pane">

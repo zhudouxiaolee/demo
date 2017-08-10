@@ -1,38 +1,9 @@
-/*markdowm编译方法*/
-var converter  = new showdown.Converter();
-function compile() {
-    var text = $('#mark_content').val();
-    var html = converter.makeHtml(text);
-    $('#mark_id').html(html);
-}
 /*提交笔记*/
 function notes_submit() {
-    var str = $('#mark_id').text();
-    var text = $('#mark_content').val();
-    if(!str) {
-        layer.alert('请填写内容后再提交!', {icon:5});
-        return false;
-    }
     layer.prompt({title:'请务必加上摘要内容，以便将来进行筛选搜索',formType:2},function (summary,index) {
-        $.ajax({
-            url: NOTES_ADD_URL,
-            type:'post',
-            data:{title:summary,content:text},
-            success:function (msg) {
-                if(msg.status) {
-                    layer.close(index);
-                    window.location.href = msg.url;
-                }else {
-                    layer.msg(msg.msg, {anim: 6});
-                }
-            }
-        });
+        $('input:hidden[name=title]').val(summary);
+        $('#form_notes').submit();
     });
-}
-/*置空笔记内容*/
-function notes_reset() {
-    $('#mark_content').val('');
-    $('#mark_id').text('');
 }
 /*修改某条笔记的分类*/
 function notest_cate_list(obj) {
@@ -67,23 +38,10 @@ function notest_cate_list(obj) {
         }
     });
 }
-/*编辑笔记内容*/
-function notes_edit(obj) {
-    var id = $(obj).attr('data-id');
-    var text = $(obj).parents('.notes_edit').next().attr('data-text');
-    //页面层
-    layer.open({
-        type: 1,
-        skin: 'layui-layer-demo', //加上边框
-        area: ['70%', '90%'], //宽高
-        maxmin:true,//开启最大化
-        content: '<div class="col-lg-12"><div class="col-lg-6 text-center"><textarea id="mark_content_alter" class="form-control" data-text="'+text+'" rows="23" style="resize: none;margin-bottom: 4px;" onkeyup="compile_alter()" title="markdown" >'+text+'</textarea><button type="button" onclick="notes_content_alter_submit('+id+')" class="btn btn-success">确认修改</button></div><div class="col-lg-6 layui-layer-border"><div class="text-center"><h3><em>编译版块</em></h3></div><div id="mark_id_alter"></div></div></div>'
-    });
-    //open后直接编译内容
-    compile_alter();
-}
 /*编译修改的笔记*/
 function compile_alter() {
+    /*markdowm编译方法*/
+    var converter  = new showdown.Converter();
     var text = $('#mark_content_alter').val();
     var html = converter.makeHtml(text);
     $('#mark_id_alter').html(html);
@@ -110,6 +68,22 @@ function notes_content_alter_submit(id) {
             }
         }
     });
+}
+/*编辑笔记内容*/
+function notes_edit(obj) {
+    var id = $(obj).attr('data-id');
+    var text = $(obj).parents('.notes_edit').next().attr('data-text');
+    //页面层
+    layer.open({
+        type: 1,
+        title:'修改笔记',
+        skin: 'layui-layer-demo', //加上边框
+        area: ['70%', '90%'], //宽高
+        maxmin:true,//开启最大化
+        content: '<div class="col-lg-12"><div class="col-lg-6 text-center"><textarea id="mark_content_alter" class="form-control" data-text="'+text+'" rows="23" style="resize: none;margin-bottom: 4px;" onkeyup="compile_alter()" title="markdown" >'+text+'</textarea><button type="button" onclick="notes_content_alter_submit('+id+')" class="btn btn-success">确认修改</button></div><div class="col-lg-6 layui-layer-border"><div class="text-center"><h3><em>编译版块</em></h3></div><div id="mark_id_alter"></div></div></div>'
+    });
+    //open后直接编译内容
+    compile_alter();
 }
 /*删除笔记*/
 function notes_delete(obj) {
@@ -241,9 +215,3 @@ function notes_key_words(obj) {
         }
     });
 }
-/*DOM加载完毕markdown编译笔记内容*/
-$('.notes').each(function (index,item) {
-    var text = $(item).attr('data-text');
-    var html = converter.makeHtml(text);
-    $(item).append(html);
-});

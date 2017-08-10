@@ -30,6 +30,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'i' => 
+        array (
+            'ijackua\\lepture\\' => 16,
+        ),
         'd' => 
         array (
             'dosamigos\\datepicker\\' => 21,
@@ -118,6 +122,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'ijackua\\lepture\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ijackua/yii2-lepture-markdown-editor-widget',
         ),
         'dosamigos\\datepicker\\' => 
         array (
