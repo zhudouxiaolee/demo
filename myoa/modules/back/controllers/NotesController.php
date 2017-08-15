@@ -95,6 +95,9 @@ class NotesController extends Controller
         if($request->isPost) {
             $postData = $request->post();
             $notesModel = new Notes();
+            if(empty($postData['content'])) {
+                return $this->dispatch(0, '笔记内容不能为空');
+            }
             if($notesModel->notesAdd($postData)) {
                 return $this->redirect(['notes/index']);
             }else {

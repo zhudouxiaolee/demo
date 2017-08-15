@@ -82,7 +82,7 @@ AppAsset::register($this);
 
         <?= $content ?>
     </div>
-    <a class="back-to-top btn btn-default" title="返回顶部" style="position: fixed;bottom: 100px;right: 1%;padding: 3px 8px;font-size: 24px;color: #666;display: none;" href="javascript:void(0)">
+    <a class="back-to-top btn btn-default" title="返回顶部" style="position: fixed;bottom: 15%;right: 2%;padding: 3px 8px;font-size: 24px;color: #666;display: none;" href="javascript:void(0)">
         <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
 </div>
