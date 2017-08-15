@@ -59,7 +59,7 @@ AppAsset::addJsFile($this, '@web/js/notes.js');
                             </div>
                             <div class="form-group">
                                 <label for="notes_title">关键词：</label>
-                                <?= Html::textInput('notes_title', $search['notes_title'], ['class' => 'form-control', 'id' => 'notes_title', 'placeholder' => '摘要中的关键词'])?>
+                                <?= Html::textInput('notes_title', $search['notes_title'], ['class' => 'form-control', 'id' => 'notes_title', 'placeholder' => '关键词'])?>
                             </div>
                             <div class="form-group">
                                 <label for="notes_category">分类：</label>

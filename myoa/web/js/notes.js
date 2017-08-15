@@ -38,52 +38,20 @@ function notest_cate_list(obj) {
         }
     });
 }
-/*编译修改的笔记*/
-function compile_alter() {
-    /*markdowm编译方法*/
-    var converter  = new showdown.Converter();
-    var text = $('#mark_content_alter').val();
-    var html = converter.makeHtml(text);
-    $('#mark_id_alter').html(html);
-}
-/*提交修改后的笔记*/
-function notes_content_alter_submit(id) {
-    var mark_content_alter = $('#mark_content_alter');
-    var content_old = mark_content_alter.attr('data-text');
-    var content_alter = mark_content_alter.val();
-    if(content_old == content_alter) {
-        layer.msg('未修改');
-        return false;
-    }
-    $.ajax({
-        url:NOTES_ALTER_URL,
-        type:'post',
-        data:{id:id,content:content_alter},
-        success:function (msg) {
-            if(msg.status) {
-                layer.msg(msg.msg);
-                window.location.reload();
-            }else {
-                layer.msg(msg.msg, {anim:6});
-            }
-        }
-    });
-}
-/*编辑笔记内容*/
+/*编辑修改笔记内容*/
 function notes_edit(obj) {
     var id = $(obj).attr('data-id');
     var text = $(obj).parents('.notes_edit').next().attr('data-text');
-    //页面层
     layer.open({
-        type: 1,
+        type:1,
         title:'修改笔记',
-        skin: 'layui-layer-demo', //加上边框
-        area: ['70%', '90%'], //宽高
         maxmin:true,//开启最大化
-        content: '<div class="col-lg-12"><div class="col-lg-6 text-center"><textarea id="mark_content_alter" class="form-control" data-text="'+text+'" rows="23" style="resize: none;margin-bottom: 4px;" onkeyup="compile_alter()" title="markdown" >'+text+'</textarea><button type="button" onclick="notes_content_alter_submit('+id+')" class="btn btn-success">确认修改</button></div><div class="col-lg-6 layui-layer-border"><div class="text-center"><h3><em>编译版块</em></h3></div><div id="mark_id_alter"></div></div></div>'
+        //skin: 'layui-layer-demo',
+        area: ['70%', '90%'], //宽高
+        content: '<form action="'+NOTES_ALTER_URL+'" method="get"><input type="hidden" name="id" value="'+id+'"><div class="lepture"><textarea id="mark_content_alter" name="content" style="display: none">'+text+'</textarea></div><div class="text-center"><button class="btn btn-success" type="submit">修改</button></div></form>'
     });
-    //open后直接编译内容
-    compile_alter();
+    //渲染markdown编辑器
+    var EditormarkContent = new Editor({"toolbar":false,"element":$("#mark_content_alter")[0]}); EditormarkContent.render();
 }
 /*删除笔记*/
 function notes_delete(obj) {

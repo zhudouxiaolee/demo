@@ -16,7 +16,6 @@ use app\models\User;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 
 class NotesController extends Controller
@@ -97,9 +96,10 @@ class NotesController extends Controller
             $postData = $request->post();
             $notesModel = new Notes();
             if($notesModel->notesAdd($postData)) {
-                return  $this->redirect(['notes/index']);
+                return $this->redirect(['notes/index']);
             }else {
-                return  $this->goBack($request->referrer);
+                //return  $this->goBack($request->referrer);
+                return $this->dispatch(0, '添加笔记失败');
             }
         }else {
             return $this->restFulResult('非法访问', 0);
@@ -118,19 +118,21 @@ class NotesController extends Controller
      */
     public function actionNotesAlter() {
         $request = Yii::$app->request;
-        if($request->isAjax) {
-            $postData = $request->post();
+        if($request->isGet) {
+            $getData = $request->get();
             //判断是否有数据获取到
-            if(!empty($postData)) {
+            if(!empty($getData)) {
                 //更新笔记内容
-                $rows = Notes::updateAll(['content' => $postData['content']], ['id' => $postData['id']]);
+                $rows = Notes::updateAll(['content' => $getData['content']], ['id' => $getData['id']]);
                 if($rows) {
-                    $result = $this->restFulResult('修改成功', 1, Url::to(['notes/index']));
+                    return $this->redirect(['notes/index']);
                 }else {
-                    $result = $this->restFulResult('未修改', 0);
+                    //return $this->goBack($request->referrer);
+                    return $this->dispatch(0, '笔记内容未修改');
                 }
             }else {
-                $result = $this->restFulResult('未获取到修改的数据', 0);
+                //return $this->goBack($request->referrer);
+                return $this->dispatch(0, '没有获取到需要修改的数据');
             }
         }else {
             $result = $this->restFulResult('非法访问', 0);
@@ -314,6 +316,16 @@ class NotesController extends Controller
         return $result;
     }
 
+    /**
+     * actionNotesKeyWords.
+     * @access
+     * @return array|mixed
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-08-15
+     * Time: 16:59:07
+     * Description:查看笔记关键字
+     */
     public function actionNotesKeyWords() {
         $request = Yii::$app->request;
         if($request->isAjax) {

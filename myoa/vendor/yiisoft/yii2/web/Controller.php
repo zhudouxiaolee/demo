@@ -389,4 +389,24 @@ class Controller extends \yii\base\Controller
         $response->data = ['data' => $data];
         return $response->data;
     }
+
+    /**
+     * dispatch.
+     * @access
+     * @param $status integer 状态信息
+     * @param $msg string 显示信息
+     * @param $url null|string 跳转路径
+     * @param $seconds integer 等待秒数
+     * @return string
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-08-15
+     * Time: 14:16:35
+     * Description:调度界面
+     */
+    protected function dispatch($status, $msg, $url = null, $seconds = 3) {
+        //定义调度界面的布局
+        $this->layout = '@app/views/layouts/secondary.php';
+        return $this->render('@app/views/layouts/dispatch.php', compact( 'status', 'msg', 'url', 'seconds'));
+    }
 }

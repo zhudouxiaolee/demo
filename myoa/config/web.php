@@ -58,7 +58,7 @@ $config = [
             'enableStrictParsing' => false,
             'ruleConfig' => ['class' => 'yii\web\UrlRule'],
             'rules' => [
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                //'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<modules:\w+>/<controller:\w+>/<action:\w+>' => '<modules>/<controller>/<action>'
             ],
             'suffix' => '.jsp'
