@@ -7,6 +7,8 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
+    //'timeZone' => 'Asia/shanghai',
+    'timeZone' => 'PRC',
     'defaultRoute' => 'back/index',
     //'homeUrl' => 'back/index/index',
     'modules' => [
@@ -81,7 +83,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

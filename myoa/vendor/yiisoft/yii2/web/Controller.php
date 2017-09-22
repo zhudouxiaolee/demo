@@ -33,42 +33,6 @@ class Controller extends \yii\base\Controller
     public $actionParams = [];
 
     /**
-     * behaviors.
-     * @access
-     * @return array
-     * Created by User: SunYuHeng
-     * Last Modify User: SunYuHeng
-     * Date: 2017-07-05
-     * Time: 14:11:23
-     * Description:行为层，ACF控制
-     */
-    // @fixme 修改父类ACF控制 放在基类不适合，有待研究
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' =>  ['index', 'login', 'logout'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'logout', 'login'],
-                        'roles' => ['@']//用户角色
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['login'],
-                        'roles' => ['?']//游客
-                    ],
-                ],
-                'denyCallback' => function($rule, $action) {
-                    return $this->redirect(['/back/manage/login']);
-                }
-            ]
-        ];
-    }
-
-    /**
      * Renders a view in response to an AJAX request.
      *
      * This method is similar to [[renderPartial()]] except that it will inject into
@@ -408,5 +372,52 @@ class Controller extends \yii\base\Controller
         //定义调度界面的布局
         $this->layout = '@app/views/layouts/secondary.php';
         return $this->render('@app/views/layouts/dispatch.php', compact( 'status', 'msg', 'url', 'seconds'));
+    }
+
+    /**
+     * curl_request.
+     * @access
+     * @param string $url  访问的URL
+     * @param string $post 提交的post数据(不填则为GET)
+     * @param string $cookie 提交的$cookies
+     * @param int $returnCookie 是否返回$cookies
+     * @return mixed|string
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-09-20
+     * Time: 13:10:35
+     * Description:curl接口请求
+     */
+    function curl_request($url,$post='',$cookie='', $returnCookie=0){
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)');
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($curl, CURLOPT_REFERER, "http://XXX");
+        if($post) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post));
+        }
+        if($cookie) {
+            curl_setopt($curl, CURLOPT_COOKIE, $cookie);
+        }
+        curl_setopt($curl, CURLOPT_HEADER, $returnCookie);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $data = curl_exec($curl);
+        if (curl_errno($curl)) {
+            return curl_error($curl);
+        }
+        curl_close($curl);
+        if($returnCookie){
+            list($header, $body) = explode("\r\n\r\n", $data, 2);
+            preg_match_all("/Set\-Cookie:([^;]*);/", $header, $matches);
+            $info['cookie']  = substr($matches[1][0], 1);
+            $info['content'] = $body;
+            return $info;
+        }else{
+            return json_decode($data);
+        }
     }
 }

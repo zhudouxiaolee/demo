@@ -11,7 +11,6 @@
 namespace app\modules\back\controllers;
 
 
-use yii\helpers\Markdown;
 use yii\web\Controller;
 
 class IndexController extends Controller
@@ -27,9 +26,6 @@ class IndexController extends Controller
      * Description:首页
      */
     public function actionIndex() {
-        $cache = \Yii::$app->cache;
-        //$cache->set('age', 100, 10);
-        //vp($cache->get('age'));
         return $this->render('home');
     }
 

@@ -34,7 +34,8 @@ class NotesController extends Controller
         $request = Yii::$app->request;
         //初始化查询
         $search = [
-            'start_date' => date('Y-m-d', strtotime('last week')),
+            //'start_date' => date('Y-m-d', strtotime('last week')),
+            'start_date' => '2017-06-01',
             'end_date' => '',
             'notes_title' => '',//关键词
             'notes_category' => -1//分类(-1:全部；0:未分类；其他:各分类ID)
