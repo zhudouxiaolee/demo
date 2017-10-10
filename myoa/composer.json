@@ -20,7 +20,9 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "2amigos/yii2-date-picker-widget": "~1.0",
         "yongtiger/yii2-bootstrap-tree": "^1.0",
-        "ijackua/yii2-lepture-markdown-editor-widget": "^1.0"
+        "ijackua/yii2-lepture-markdown-editor-widget": "^1.0",
+        "moonlandsoft/yii2-phpexcel": "^1.1",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

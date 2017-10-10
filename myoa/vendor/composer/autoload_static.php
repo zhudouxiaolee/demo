@@ -30,6 +30,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'm' => 
+        array (
+            'moonland\\phpexcel\\' => 18,
+        ),
         'i' => 
         array (
             'ijackua\\lepture\\' => 16,
@@ -122,6 +126,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'moonland\\phpexcel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/moonlandsoft/yii2-phpexcel',
         ),
         'ijackua\\lepture\\' => 
         array (
@@ -219,6 +227,10 @@ class ComposerStaticInitde8da454c5648a9ef58892dcc076faad
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
             ),
         ),
         'H' => 

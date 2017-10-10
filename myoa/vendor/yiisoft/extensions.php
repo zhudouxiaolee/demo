@@ -75,4 +75,13 @@ return array (
       '@ijackua/lepture' => $vendorDir . '/ijackua/yii2-lepture-markdown-editor-widget',
     ),
   ),
+  'moonlandsoft/yii2-phpexcel' => 
+  array (
+    'name' => 'moonlandsoft/yii2-phpexcel',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@moonland/phpexcel' => $vendorDir . '/moonlandsoft/yii2-phpexcel',
+    ),
+  ),
 );
