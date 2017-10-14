@@ -13,8 +13,10 @@ namespace app\modules\back\controllers;
 use app\models\Official;
 use app\models\User;
 use Yii;
+use yii\caching\DbDependency;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
+use yii\filters\PageCache;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -52,7 +54,16 @@ class OfficialController extends Controller
                 'denyCallback' => function($rule, $action) {
                     return $this->redirect(['/back/manage/login']);
                 }
-            ]
+            ],
+//            'pageCache' => [
+//                'class' => PageCache::className(),
+//                'only' => ['index'],
+//                'duration' => 60,
+//                'dependency' => [
+//                    'class' => DbDependency::className(),
+//                    'sql' => 'select count(*) from {{%official}} WHERE uid = '.Yii::$app->user->id
+//                ]
+//            ]
         ];
     }
 

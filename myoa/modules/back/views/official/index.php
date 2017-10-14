@@ -10,6 +10,7 @@
 use app\assets\AppAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 //依赖加载js文件
 AppAsset::addJsFile($this, '@web/js/official.js');
@@ -26,7 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </ul>
     <div class="tab-content">
         <!--日程列表显示-->
+
         <div id="list" class="tab-pane active">
+            <?php Pjax::begin(['id' => 'recordList', 'formSelector' => false])?>
             <table id="official_list" class="table table-hover table-striped">
                 <thead>
                     <tr>
@@ -56,7 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
             </table>
             <!--分页-->
             <?= $this->render('@app/views/layouts/page.php', ['pages' => $pages, 'count' => $count])?>
+            <?php Pjax::end()?>
         </div>
+
         <!--添加日程-->
         <div id="add" class="tab-pane col-lg-10 col-lg-offset-1">
         <?= Html::beginForm(['/back/official/manage'], 'post', ['onsubmit' => 'return is_empty_form();'])?>
@@ -90,7 +95,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <?php $this->beginBlock('js')?>
