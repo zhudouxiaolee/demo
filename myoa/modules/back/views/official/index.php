@@ -16,6 +16,7 @@ use yii\widgets\Pjax;
 AppAsset::addJsFile($this, '@web/js/official.js');
 AppAsset::addCssFile($this, '@web/css/dataTables.css');
 AppAsset::addJsFile($this, '@web/js/dataTables.js');
+AppAsset::addJsFile($this, '@web/js/clipboard.min.js');
 $this->title = '日程管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -50,7 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center"><?= Yii::$app->params['week'][date('w', $v['time'])]?></td>
                         <td class="content" data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
                         <td class="text-center">
-<!--                         <span class="glyphicon glyphicon-edit" title="编辑" style="cursor:pointer;"></span> -->
+                            <!--动态选择对象的复制内容-->
+                            <span class="glyphicon glyphicon-file" data-clipboard-action="copy" title="复制" style="cursor:pointer;"></span>
+                            <!--固定选择对象的复制内容，增加data-clipboard-text 属性-->
+<!--                            <span class="glyphicon glyphicon-file" data-clipboard-action="copy" data-clipboard-text="--><?//= $v['content']?><!--" title="复制" style="cursor:pointer;"></span>-->
                             <span class="glyphicon glyphicon-trash" onclick="delete_daily_official(this)" data-id="<?= $v['id']?>" title="删除" style="cursor:pointer;"></span>
                         </td>
                     </tr>
@@ -100,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('js')?>
     //修改日程内容url
     var ALTERDAILYURL = '<?= Url::to(['official/alter-daily-official'])?>';
-    //删除单挑日程记录url
+    //删除单条日程记录url
     var DELETEDAILYURL = '<?= Url::to(['official/delete-daily-official'])?>';
     //tab标签切换调用（默认显示第一个）
     $('#nav_tab li:eq(0) a').tab('show');
@@ -112,6 +116,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columnDefs': [
             {'orderable':false, 'targets' : [4,5]}
         ]
+    });
+    //初始化复制功能的DOM节点
+    var clipboard = new Clipboard('.glyphicon-file',{
+        text:function(trigger){
+            return $(trigger).parent().prev().text();
+        }
+    });
+    clipboard.on('success',function(event){
+        layer.msg(event.text+'<br>复制成功');
+        event.clearSelection();
+    });
+    clipboard.on('error',function(event){
+        layer.msg('复制失败');
     });
 <?php $this->endBlock()?>
 <?php $this->registerJs($this->blocks['js'], \yii\web\view::POS_END)?>
