@@ -17,7 +17,7 @@ AppAsset::addJsFile($this, '@web/js/official.js');
 AppAsset::addCssFile($this, '@web/css/dataTables.css');
 AppAsset::addJsFile($this, '@web/js/dataTables.js');
 //AppAsset::addJsFile($this, '@web/js/clipboard.min.js');
-AppAsset::addJsFile($this, '@web/js/ZeroClipboard.js');
+AppAsset::addJsFile($this, '@web/js/ZeroClipboard.min.js');
 $this->title = '日程管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
