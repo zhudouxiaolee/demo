@@ -16,7 +16,8 @@ use yii\widgets\Pjax;
 AppAsset::addJsFile($this, '@web/js/official.js');
 AppAsset::addCssFile($this, '@web/css/dataTables.css');
 AppAsset::addJsFile($this, '@web/js/dataTables.js');
-AppAsset::addJsFile($this, '@web/js/clipboard.min.js');
+//AppAsset::addJsFile($this, '@web/js/clipboard.min.js');
+AppAsset::addJsFile($this, '@web/js/ZeroClipboard.js');
 $this->title = '日程管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -51,8 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center"><?= Yii::$app->params['week'][date('w', $v['time'])]?></td>
                         <td class="content" data-id="<?= $v['id']?>" ondblclick="alter_daily(this)" style="cursor: pointer"><?= $v['content']?></td>
                         <td class="text-center">
+                            <span class="glyphicon glyphicon-file" title="复制" style="cursor:pointer;"></span>
                             <!--动态选择对象的复制内容-->
-                            <span class="glyphicon glyphicon-file" data-clipboard-action="copy" title="复制" style="cursor:pointer;"></span>
+<!--                            <span class="glyphicon glyphicon-file" data-clipboard-action="copy" title="复制" style="cursor:pointer;"></span>-->
                             <!--固定选择对象的复制内容，增加data-clipboard-text 属性-->
 <!--                            <span class="glyphicon glyphicon-file" data-clipboard-action="copy" data-clipboard-text="--><?//= $v['content']?><!--" title="复制" style="cursor:pointer;"></span>-->
                             <span class="glyphicon glyphicon-trash" onclick="delete_daily_official(this)" data-id="<?= $v['id']?>" title="删除" style="cursor:pointer;"></span>
@@ -117,18 +119,41 @@ $this->params['breadcrumbs'][] = $this->title;
             {'orderable':false, 'targets' : [4,5]}
         ]
     });
-    //初始化复制功能的DOM节点
+    //初始化复制功能的DOM节点(clipboard.js不支持移动端)
+    /*
     var clipboard = new Clipboard('.glyphicon-file',{
         text:function(trigger){
             return $(trigger).parent().prev().text();
         }
     });
-    clipboard.on('success',function(event){
+    clipboard.on('success',function(event){console.log(event);
         layer.msg(event.text+'<br>复制成功');
         event.clearSelection();
     });
     clipboard.on('error',function(event){
         layer.msg('复制失败');
+
+    });
+    */
+    //初始化复制功能的DOM节点(ZeroClipboard.js支持移动端)
+    var copyTarget = $('.glyphicon-file');
+    var zeroClipboard = new ZeroClipboard(copyTarget);
+
+    zeroClipboard.on('ready',function(e){
+        //console.log('.swf文件已加载');
+    });
+    zeroClipboard.on('beforecopy',function(e){
+        //console.log('复制操作之前的处理');
+    });
+    zeroClipboard.on('copy',function(e){
+        var text = $(e.target).parent().prev().text();
+        e.clipboardData.setData('text/plain', text);
+    });
+    zeroClipboard.on('aftercopy',function(e){
+        layer.msg(e.data['text/plain']+'<br>复制成功');
+    });
+    zeroClipboard.on('error',function(e){
+        layer.msg('复制失败',{anim:6});
     });
 <?php $this->endBlock()?>
 <?php $this->registerJs($this->blocks['js'], \yii\web\view::POS_END)?>
