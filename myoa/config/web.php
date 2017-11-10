@@ -18,6 +18,9 @@ $config = [
         'front' => [
             'class' => 'app\modules\front\frontend',
         ],
+        'wechat' => [
+            'class' => 'app\modules\wechat\wechat'
+        ]
     ],
     //配置组件
     'components' => require(__DIR__ . '/components.php'),
