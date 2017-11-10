@@ -7,7 +7,9 @@ use yii\web\Controller;
 
 class WechatController extends Controller
 {
-    public function actionIndex() {
+    public $enableCsrfValidation = false;
+
+    public function actionIndex() {vp($_POST);
         if(!isset($_GET['echostr'])) {
             $this->responseMsg();
         }else {
