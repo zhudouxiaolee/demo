@@ -9,7 +9,7 @@ class WechatController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    public function actionIndex() {vp($_POST);
+    public function actionIndex() {
         if(!isset($_GET['echostr'])) {
             $this->responseMsg();
         }else {
