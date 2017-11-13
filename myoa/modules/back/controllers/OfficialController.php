@@ -36,25 +36,25 @@ class OfficialController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                //'only' =>  ['index', 'manage', 'alter-daily-official', 'delete-daily-official'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        //'actions' => ['index'],
-                        'roles' => ['@']//用户角色
-                    ],
-                    [
-                        'allow' => false,
-                        //'actions' => ['index'],
-                        'roles' => ['?']//游客
-                    ],
-                ],
-                'denyCallback' => function($rule, $action) {
-                    return $this->redirect(['/back/manage/login']);
-                }
-            ],
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                //'only' =>  ['index', 'manage', 'alter-daily-official', 'delete-daily-official'],
+//                'rules' => [
+//                    [
+//                        'allow' => true,
+//                        //'actions' => ['index'],
+//                        'roles' => ['@']//用户角色
+//                    ],
+//                    [
+//                        'allow' => false,
+//                        //'actions' => ['index'],
+//                        'roles' => ['?']//游客
+//                    ],
+//                ],
+//                'denyCallback' => function($rule, $action) {
+//                    return $this->redirect(['/back/manage/login']);
+//                }
+//            ],
 //            'pageCache' => [
 //                'class' => PageCache::className(),
 //                'only' => ['index'],

@@ -38,6 +38,18 @@ class ManageController extends Controller
     }
 
     /**
+     * init.
+     * @access
+     * @return void
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-11-13
+     * Time: 11:38:51
+     * Description:重写父类init，防止对游客判断造成重定向
+     */
+    public function init(){}
+
+    /**
      * actionLogin.
      * @access
      * @return string|Response

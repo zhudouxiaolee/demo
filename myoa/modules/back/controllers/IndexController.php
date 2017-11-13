@@ -16,6 +16,18 @@ use yii\web\Controller;
 class IndexController extends Controller
 {
     /**
+     * init.
+     * @access
+     * @return void
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-11-13
+     * Time: 11:39:53
+     * Description:重写父类init，防止对游客判断造成重定向
+     */
+    public function init(){}
+
+    /**
      * actionIndex.
      * @access
      * @return string
