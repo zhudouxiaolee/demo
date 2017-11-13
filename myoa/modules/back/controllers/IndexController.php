@@ -22,7 +22,7 @@ class IndexController extends Controller
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
      * Date: 2017-11-13
-     * Time: 11:39:53
+     * Time: 13:33:42
      * Description:重写父类init，防止对游客判断造成重定向
      */
     public function init(){}

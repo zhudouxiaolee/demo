@@ -35,7 +35,7 @@ class Controller extends \yii\base\Controller
     /**
      * init.
      * @access
-     * @return bool|Response
+     * @return void
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
      * Date: 2017-11-13
@@ -47,7 +47,8 @@ class Controller extends \yii\base\Controller
         // 判断是否为游客(是否登录)
         $isGuest = Yii::$app->getUser()->getIsGuest();
         if($isGuest) {
-            $this->redirect(['/back/manage/login']);
+            $this->redirect(['/back/manage/login'])->send();
+            exit;
         }
     }
 
