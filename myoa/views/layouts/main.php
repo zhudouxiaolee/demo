@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'OA办公系统',
+        'brandLabel' => '个人笔记网站',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-inverse navbar-fixed-top',
@@ -89,7 +89,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; OA办公系统 <?= date('Y') ?></p>
+        <p class="pull-left">&copy; 个人笔记网站 <?= date('Y') ?></p>
         <p class="pull-right"><a id="clock" href="javascript:void(0)"></a><?php //echo Yii::powered(); ?></p>
     </div>
 </footer>

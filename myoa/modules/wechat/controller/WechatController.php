@@ -48,22 +48,50 @@ class WechatController extends Controller
     {
         // php7 去除了$GLOBALS["HTTP_RAW_POST_DATA"]
         // $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        // 临时路径
+        $runtime = Yii::getAlias('@runtime') . '/logs/wechat.log';
+
         $postStr = file_get_contents('php://input');
         if (!empty($postStr)){
-            $this->logger("R ".$postStr);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            // 日志记录
+            //file_put_contents($runtime, var_export($postObj, true), FILE_APPEND);
             $RX_TYPE = trim($postObj->MsgType);
 
             switch ($RX_TYPE)
             {
+                // 菜单点击
                 case "event":
                     $result = $this->receiveEvent($postObj);
                     break;
+                // 文本
                 case "text":
                     $result = $this->receiveText($postObj);
                     break;
+                // 图片
+                case 'image':
+                    $result = $this->transmitImage($postObj);
+                    break;
+                // 语音
+                case 'voice':
+                    $result = $this->transmitVoice($postObj);
+                    break;
+                // 视频
+                case 'video':
+                    $result = $this->transmitVideo($postObj);
+                    break;
+                // 位置
+                case 'location':
+                    $result = '';
+                    break;
+                // 链接
+                case 'link':
+                    $result = '';
+                    break;
+                default:
+                    $result = '';
+                    break;
             }
-            $this->logger("T ".$result);
             echo $result;
         }else {
             echo "";
@@ -77,10 +105,20 @@ class WechatController extends Controller
         switch ($object->Event)
         {
             case "subscribe":
-                $content = "欢迎yh工作室";
+                $content = "欢迎关注yh工作室";
                 break;
             case "unsubscribe":
                 $content = "取消关注";
+                break;
+            case 'click':
+                switch ($object->EventKey) {
+                    case 'company':
+                        $content[] = array("Title" =>"yh工作室简介",
+                            "Description" =>"yh工作室提供各种生活相关的服务",
+                            "PicUrl" =>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg",
+                            "Url" =>"weixin://addfriend/pondbaystudio");
+                }
+
                 break;
         }
         $result = $this->transmitText($object, $content);
@@ -91,7 +129,15 @@ class WechatController extends Controller
     private function receiveText($object)
     {
         $keyword = trim($object->Content);
-        $content = date("Y-m-d H:i:s",time())."\n技术支持 方倍工作室";
+        //$content = date("Y-m-d H:i:s",time())."\n技术支持 方倍工作室";
+        switch ($keyword) {
+            case '天气':
+                $content = '天气好';
+                break;
+            default:
+                $content = $keyword;
+                break;
+        }
 
         if(is_array($content)){
             if (isset($content[0]['PicUrl'])){
@@ -174,17 +220,61 @@ $item_str
         return $result;
     }
 
-    private function logger($log_content)
-    {
-        if(isset($_SERVER['HTTP_APPNAME'])){   //SAE
-            sae_set_display_errors(false);
-            sae_debug($log_content);
-            sae_set_display_errors(true);
-        }else if($_SERVER['REMOTE_ADDR'] != "127.0.0.1"){ //LOCAL
-            $max_size = 10000;
-            $log_filename = "log.xml";
-            if(file_exists($log_filename) and (abs(filesize($log_filename)) > $max_size)){unlink($log_filename);}
-            file_put_contents($log_filename, date('H:i:s')." ".$log_content."\r\n", FILE_APPEND);
-        }
+    /*
+     * 格式化图片消息
+     */
+    private function transmitImage($object){
+        $imageTpl = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[image]]></MsgType>
+<Image>
+<MediaId><![CDATA[%s]]></MediaId>
+</Image>
+</xml>";
+        $result = sprintf($imageTpl, $object->FromUserName, $object->ToUserName,time(), $object->MediaId);
+        return $result;
+    }
+
+    /*
+     * 格式化语音消息
+     */
+    private function transmitVoice($object) {
+        $voiceTpl = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[voice]]></MsgType>
+<Voice>
+<MediaId><![CDATA[%s]]></MediaId>
+</Voice>
+</xml>";
+        $textTpl = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[%s]]></Content>
+</xml>";
+        $result = sprintf($voiceTpl, $object->FromUserName, $object->ToUserName, time(), $object->MediaId);
+        //$result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), '您刚刚说的内容是：'.$object->Recognition);
+        return $result;
+    }
+
+    private function transmitVideo($object) {
+        $videoTpl = "<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[video]]></MsgType>
+<Video>
+<MediaId><![CDATA[%s]]></MediaId>
+<Title><![CDATA[%s]]></Title>
+<Description><![CDATA[%s]]></Description>
+</Video> 
+</xml>";
+        $result = sprintf($videoTpl, $object->FromUserName, $object->ToUserName, time(), $object->MediaId, '', '');
+        return $result;
     }
 }
