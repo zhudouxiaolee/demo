@@ -33,6 +33,25 @@ class Controller extends \yii\base\Controller
     public $actionParams = [];
 
     /**
+     * init.
+     * @access
+     * @return bool|Response
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-11-13
+     * Time: 11:28:26
+     * Description:判断是否登录，否：跳转到登陆界面
+     */
+    public function init()
+    {
+        // 判断是否为游客(是否登录)
+        $isGuest = Yii::$app->getUser()->getIsGuest();
+        if($isGuest) {
+            $this->redirect(['/back/manage/login']);
+        }
+    }
+
+    /**
      * Renders a view in response to an AJAX request.
      *
      * This method is similar to [[renderPartial()]] except that it will inject into
