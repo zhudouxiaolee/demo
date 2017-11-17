@@ -19,7 +19,7 @@ class WechatController extends Controller
      * Created by User: SunYuHeng
      * Last Modify User: SunYuHeng
      * Date: 2017-11-13
-     * Time: 15:08:14
+     * Time: 14:44:51
      * Description:重写父类方法，不进行登录用户的认证
      */
     public function init(){}
