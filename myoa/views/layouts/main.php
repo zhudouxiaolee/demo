@@ -89,8 +89,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; 个人笔记网站 <?= date('Y') ?></p>
+        <p class="pull-left" style="color: #9b9ea0">&copy;  2016-<?= date('Y') ?>个人笔记&nbsp;&nbsp;<a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#9b9ea0;">京ICP备17063901号</a></p>
         <p class="pull-right"><a id="clock" href="javascript:void(0)"></a><?php //echo Yii::powered(); ?></p>
+
     </div>
 </footer>
 

@@ -7,7 +7,22 @@ use yii\web\Controller;
 
 class WechatController extends Controller
 {
+    /*
+     * 禁止csrf校验
+     */
     public $enableCsrfValidation = false;
+
+    /**
+     * init.
+     * @access
+     * @return void
+     * Created by User: SunYuHeng
+     * Last Modify User: SunYuHeng
+     * Date: 2017-11-13
+     * Time: 15:08:14
+     * Description:重写父类方法，不进行登录用户的认证
+     */
+    public function init(){}
 
     public function actionIndex() {
         if(!isset($_GET['echostr'])) {
