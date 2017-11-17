@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=myoasystems',
-    'username' => 'produser',
-    'password' => 'prod#user!123',
+    'dsn' => 'mysql:host=localhost;dbname=test',
+    'username' => 'root',
+    'password' => 'root',
     'charset' => 'utf8',
     'tablePrefix' => 'oa_',
     'enableSchemaCache' => true,

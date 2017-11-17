@@ -29,14 +29,13 @@ return [
         'transport' => [
             'class' => 'Swift_SmtpTransport',
             'host' => 'smtp.163.com',
-            'username' => '15829387751@163.com',
-            'password' => 'Sl131414',
+            'username' => '',
+            'password' => '',
             'port' => '587',
             'encryption' => 'ssl',//    tls | ssl
         ],
         'messageConfig'=>[
             'charset'=>'UTF-8',
-            //'from'=>['15829387751@163.com'=>'admin']
         ],
     ],
     'log' => [
@@ -52,8 +51,8 @@ return [
                 'mailer' => 'mailer',
                 'levels' => ['error', 'warning'],
                 'message' => [
-                    'from' => ['15829387751@163.com'],
-                    'to' => ['15829387751@163.com'],
+                    'from' => [''],
+                    'to' => [''],
                     'subject' => 'OaLog message',
                 ],
             ],
