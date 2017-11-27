@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => '个人笔记网站',
+        'brandLabel' => '个人笔记',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-inverse navbar-fixed-top',
